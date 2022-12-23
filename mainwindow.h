@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "highlighter.h"
 #include <QMainWindow>
 #include <QLabel>
 QT_BEGIN_NAMESPACE

@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->textEdit->setLineWrapMode(QPlainTextEdit::NoWrap);
         ui->actionWrap->setChecked(true);
     }
+    Highlighter*newLight = new Highlighter(ui->textEdit->document());
     ui->actionStatus->setChecked(true);
     ui->actionTool->setChecked(true);
     ui->actionGotoNumber->setChecked(false);
@@ -90,6 +91,7 @@ void MainWindow::on_actionOpen_triggered()
 {
     if(!userEditConfirmed())
         return;
+
     QString filename = QFileDialog::getOpenFileName(this,"打开文件",".",tr("Text files (*.txt));;All(*.*)"));
     QFile file(filename);
     if(!file.open(QFile::ReadOnly | QFile::Text))
@@ -99,7 +101,7 @@ void MainWindow::on_actionOpen_triggered()
     }
     filePath=filename;
     QTextStream in(&file);
-    in.setCodec("GBK");
+    in.setCodec("gbk");
     QString text=in.readAll();
     ui->textEdit->insertPlainText(text);
     file.close();

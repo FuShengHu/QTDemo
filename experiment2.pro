@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     aboutdialog.cpp \
     codeeditor.cpp \
+    highlighter.cpp \
     main.cpp \
     mainwindow.cpp \
     replacedialog.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     aboutdialog.h \
     codeeditor.h \
+    highlighter.h \
     mainwindow.h \
     replacedialog.h \
     searchdialog.h
