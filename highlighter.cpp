@@ -37,7 +37,7 @@ Highlighter::Highlighter(QTextDocument *parent)
 
 //! [3]
     singleLineCommentFormat.setForeground(Qt::red);
-    rule.pattern = QRegularExpression("//[^\n]*");
+    rule.pattern = QRegularExpression("(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?");
     rule.format = singleLineCommentFormat;
     highlightingRules.append(rule);
 

@@ -3,16 +3,22 @@
 #include "aboutdialog.h"
 #include "searchdialog.h"
 #include "replacedialog.h"
+#include "codeeditor.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QColorDialog>
 #include <QFontDialog>
 #include <QTextStream>
+#include <QMouseEvent>
+#include <QWheelEvent>
+#include <QKeyEvent>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setMouseTracking(true);
     textChanged=false;
     on_actionNew_triggered();
     statusLabel.setMaximumWidth(180);
@@ -89,6 +95,7 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
+
     if(!userEditConfirmed())
         return;
 
@@ -355,4 +362,5 @@ void MainWindow::on_textEdit_cursorPositionChanged()
 //{
 //    ui->textEdit->hideLineNumberArea(!checked);
 //}
+
 

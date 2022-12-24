@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDesktopServices>
 #include "highlighter.h"
 #include <QMainWindow>
 #include <QLabel>
+#include <QPlainTextEdit>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -69,15 +71,18 @@ private slots:
 
     void on_textEdit_cursorPositionChanged();
 
+
+
+
     //void on_actionGotoNumber_triggered(bool checked);
 
 private:
     Ui::MainWindow *ui;
-
     QLabel statusCursorLabel;
     QLabel statusLabel;
     QString filePath;
     bool textChanged;
     bool userEditConfirmed();
+
 };
 #endif // MAINWINDOW_H

@@ -2,6 +2,11 @@
 #define CODEEDITOR_H
 #include <QObject>
 #include <QPlainTextEdit>
+#include <QTextCursor>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QTextBlock>
+#include <QTextEdit>
 
 class CodeEditor : public QPlainTextEdit
 {
@@ -23,6 +28,9 @@ private slots:
 
 public slots:
     void hideLineNumberArea(bool flag);
+
+public:
+    void mouseDoubleClickEvent(QMouseEvent* e) override;
 
 private:
     QWidget *lineNumberArea;

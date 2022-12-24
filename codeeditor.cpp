@@ -100,3 +100,33 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
             ++blockNumber;
         }
     }
+
+void CodeEditor::mouseDoubleClickEvent(QMouseEvent* e)
+{
+    QWidget::mouseDoubleClickEvent(e);
+
+    if (e->button() != Qt::LeftButton)
+        return;
+
+    QRegExp urlRex = QRegExp("(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?");
+
+    //获取光标所在的位置
+    QTextCursor cursor = textCursor();
+    QString str = cursor.block().text();
+    int blockPos = cursor.positionInBlock();
+
+    //匹配正则，如果光标所在位置是一个链接,那么直接打开
+    int pos = 0;
+    int length = 0;
+    while ((pos = urlRex.indexIn(str, pos)) != -1) {
+        length = urlRex.matchedLength();
+        if (blockPos - pos < length)
+        {
+            auto temp = str.mid(pos, length - 1);
+            QUrl url(temp);
+            QDesktopServices::openUrl(QUrl(url));
+            break;
+        }
+        pos += urlRex.matchedLength();
+    }
+}
