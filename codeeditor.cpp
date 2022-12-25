@@ -110,12 +110,10 @@ void CodeEditor::mouseDoubleClickEvent(QMouseEvent* e)
 
     QRegExp urlRex = QRegExp("(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?");
 
-    //获取光标所在的位置
     QTextCursor cursor = textCursor();
     QString str = cursor.block().text();
     int blockPos = cursor.positionInBlock();
 
-    //匹配正则，如果光标所在位置是一个链接,那么直接打开
     int pos = 0;
     int length = 0;
     while ((pos = urlRex.indexIn(str, pos)) != -1) {
