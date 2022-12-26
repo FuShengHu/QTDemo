@@ -84,5 +84,6 @@ private:
     bool textChanged;
     bool userEditConfirmed();
 
+
 };
 #endif // MAINWINDOW_H
