@@ -20,7 +20,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setMouseTracking(true);
     textChanged=false;
-    on_actionNew_triggered();
+    if(!userEditConfirmed())
+        return;
+    filePath ="";
+    ui->textEdit->clear();
+    this->setWindowTitle(tr("新建文本文件--编辑器"));
+    textChanged=false;
     statusLabel.setMaximumWidth(180);
     statusLabel.setText("length: "+QString::number(0)+"     lines: "+QString::number(1));
     ui->statusbar->addPermanentWidget(&statusLabel);
@@ -84,12 +89,8 @@ void MainWindow::on_actionReplace_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
-    if(!userEditConfirmed())
-        return;
-    filePath ="";
-    ui->textEdit->clear();
-    this->setWindowTitle(tr("新建文本文件--编辑器"));
-    textChanged=false;
+    MainWindow*newWindow=new MainWindow;
+               newWindow->show();
 }
 
 
