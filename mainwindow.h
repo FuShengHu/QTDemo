@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QPlainTextEdit>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -71,19 +72,29 @@ private slots:
 
     void on_textEdit_cursorPositionChanged();
 
-
-
-
     //void on_actionGotoNumber_triggered(bool checked);
+
+
+private slots:
+    void loadFile1();
+    void loadFile2();
+    void loadFile3();
+    void loadFile4();
+    void loadFile5();
+    void lists();
+    void RecentHistory();
 
 private:
     Ui::MainWindow *ui;
     QLabel statusCursorLabel;
     QLabel statusLabel;
     QString filePath;
+    QList<QString> diflist;
+    QList<QString> list;
     bool textChanged;
     bool userEditConfirmed();
-
+    QAction *one,*two,*three,*four,*five;
+    int sign=0;
 
 };
 #endif // MAINWINDOW_H

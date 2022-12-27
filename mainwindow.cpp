@@ -90,7 +90,7 @@ void MainWindow::on_actionReplace_triggered()
 void MainWindow::on_actionNew_triggered()
 {
     MainWindow*newWindow=new MainWindow;
-               newWindow->show();
+    newWindow->show();
 }
 
 
@@ -108,6 +108,11 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     filePath=filename;
+    if(list.contains(filePath))
+        sign=1;
+    list.append(filePath);
+    lists();
+    ui->textEdit->clear();
     QTextStream in(&file);
     in.setCodec("gbk");
     QString text=in.readAll();
@@ -115,6 +120,7 @@ void MainWindow::on_actionOpen_triggered()
     file.close();
     this->setWindowTitle(QFileInfo(filename).absoluteFilePath());
     textChanged=false;
+    RecentHistory();
 }
 
 
@@ -364,4 +370,211 @@ void MainWindow::on_textEdit_cursorPositionChanged()
 //    ui->textEdit->hideLineNumberArea(!checked);
 //}
 
+void MainWindow::loadFile1(){
+    filePath=diflist[0];
+    QFile file(filePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"..","打开文件失败");
+        return;
+    }
+
+    QTextStream in(&file);
+    in.setCodec("gbk");
+    QString text=in.readAll();
+    ui->textEdit->insertPlainText(text);
+    file.close();
+    this->setWindowTitle(QFileInfo(filePath).absoluteFilePath());
+    textChanged=false;
+}
+
+void MainWindow::loadFile2(){
+    filePath=diflist[1];
+    QFile file(filePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"..","打开文件失败");
+        return;
+    }
+
+    QTextStream in(&file);
+    in.setCodec("gbk");
+    QString text=in.readAll();
+    ui->textEdit->insertPlainText(text);
+    file.close();
+    this->setWindowTitle(QFileInfo(filePath).absoluteFilePath());
+    textChanged=false;
+}
+
+void MainWindow::loadFile3(){
+    filePath=diflist[2];
+    QFile file(filePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"..","打开文件失败");
+        return;
+    }
+
+    QTextStream in(&file);
+    in.setCodec("gbk");
+    QString text=in.readAll();
+    ui->textEdit->insertPlainText(text);
+    file.close();
+    this->setWindowTitle(QFileInfo(filePath).absoluteFilePath());
+    textChanged=false;
+}
+
+void MainWindow::loadFile4(){
+    filePath=diflist[3];
+    QFile file(filePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"..","打开文件失败");
+        return;
+    }
+
+    QTextStream in(&file);
+    in.setCodec("gbk");
+    QString text=in.readAll();
+    ui->textEdit->insertPlainText(text);
+    file.close();
+    this->setWindowTitle(QFileInfo(filePath).absoluteFilePath());
+    textChanged=false;
+}
+
+void MainWindow::loadFile5(){
+    filePath=diflist[4];
+    QFile file(filePath);
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"..","打开文件失败");
+        return;
+    }
+    ui->textEdit->clear();
+    QTextStream in(&file);
+    in.setCodec("gbk");
+    QString text=in.readAll();
+    ui->textEdit->insertPlainText(text);
+    file.close();
+    this->setWindowTitle(QFileInfo(filePath).absoluteFilePath());
+    textChanged=false;
+}
+
+void MainWindow::lists(){
+    int a;
+    a=diflist.length();
+    for(int j=a-1;j>=0;j--)
+        diflist.removeAt(j);
+
+    for(int i=list.length()-1; i>=0;i--)
+    {
+       if(!diflist.contains(list[i]))
+       {
+          diflist.append(list[i]);
+       }
+    }
+
+}
+
+void MainWindow::RecentHistory(){
+    if((diflist.length()==2&&sign==0)||(diflist.length()==1&&sign==1))
+    {
+        ui->menu_6->removeAction(one);
+    }
+
+    if((diflist.length()==3&&sign==0)||(diflist.length()==2&&sign==1))
+    {
+        ui->menu_6->removeAction(one);
+        ui->menu_6->removeAction(two);
+    }
+
+    if((diflist.length()==4&&sign==0)||(diflist.length()==3&&sign==1))
+    {
+        ui->menu_6->removeAction(one);
+        ui->menu_6->removeAction(two);
+        ui->menu_6->removeAction(three);
+    }
+
+    if((diflist.length()==5&&sign==0)||(diflist.length()==4&&sign==1))
+    {
+        ui->menu_6->removeAction(one);
+        ui->menu_6->removeAction(two);
+        ui->menu_6->removeAction(three);
+        ui->menu_6->removeAction(four);
+    }
+    if((diflist.length()>=6&&sign==0)||(diflist.length()>=5&&sign==1))
+    {
+        ui->menu_6->removeAction(one);
+        ui->menu_6->removeAction(two);
+        ui->menu_6->removeAction(three);
+        ui->menu_6->removeAction(four);
+        ui->menu_6->removeAction(five);
+    }
+
+    if(diflist.length()==1)
+    {
+       one = new QAction(QFileInfo(diflist[0]).fileName());
+       ui->menu_6->addAction(one);
+       connect(one,SIGNAL(triggered()),this,SLOT(loadFile1()));
+    }
+
+    if(diflist.length()==2)
+    {
+       one = new QAction(QFileInfo(diflist[0]).fileName());
+       ui->menu_6->addAction(one);
+       connect(one,SIGNAL(triggered()),this,SLOT(loadFile1()));
+       two = new QAction(QFileInfo(diflist[1]).fileName());
+       ui->menu_6->addAction(two);
+       connect(two,SIGNAL(triggered()),this,SLOT(loadFile2()));
+    }
+
+    if(diflist.length()==3)
+    {
+       one = new QAction(QFileInfo(diflist[0]).fileName());
+       ui->menu_6->addAction(one);
+       connect(one,SIGNAL(triggered()),this,SLOT(loadFile1()));
+       two = new QAction(QFileInfo(diflist[1]).fileName());
+       ui->menu_6->addAction(two);
+       connect(two,SIGNAL(triggered()),this,SLOT(loadFile2()));
+       three = new QAction(QFileInfo(diflist[2]).fileName());
+       ui->menu_6->addAction(three);
+       connect(three,SIGNAL(triggered()),this,SLOT(loadFile3()));
+    }
+
+    if(diflist.length()==4)
+    {
+       one = new QAction(QFileInfo(diflist[0]).fileName());
+       ui->menu_6->addAction(one);
+       connect(one,SIGNAL(triggered()),this,SLOT(loadFile1()));
+       two = new QAction(QFileInfo(diflist[1]).fileName());
+       ui->menu_6->addAction(two);
+       connect(two,SIGNAL(triggered()),this,SLOT(loadFile2()));
+       three = new QAction(QFileInfo(diflist[2]).fileName());
+       ui->menu_6->addAction(three);
+       connect(three,SIGNAL(triggered()),this,SLOT(loadFile3()));
+       four = new QAction(QFileInfo(diflist[3]).fileName());
+       ui->menu_6->addAction(four);
+       connect(four,SIGNAL(triggered()),this,SLOT(loadFile4()));
+    }
+
+    if(diflist.length()>=5)
+    {
+       one = new QAction(QFileInfo(diflist[0]).fileName());
+       ui->menu_6->addAction(one);
+       connect(one,SIGNAL(triggered()),this,SLOT(loadFile1()));
+       two = new QAction(QFileInfo(diflist[1]).fileName());
+       ui->menu_6->addAction(two);
+       connect(two,SIGNAL(triggered()),this,SLOT(loadFile2()));
+       three = new QAction(QFileInfo(diflist[2]).fileName());
+       ui->menu_6->addAction(three);
+       connect(three,SIGNAL(triggered()),this,SLOT(loadFile3()));
+       four = new QAction(QFileInfo(diflist[3]).fileName());
+       ui->menu_6->addAction(four);
+       connect(four,SIGNAL(triggered()),this,SLOT(loadFile4()));
+       five = new QAction(QFileInfo(diflist[4]).fileName());
+       ui->menu_6->addAction(five);
+       connect(five,SIGNAL(triggered()),this,SLOT(loadFile5()));
+    }
+    sign=0;
+}
 
